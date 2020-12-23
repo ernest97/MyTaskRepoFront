@@ -63,6 +63,7 @@ export class TaskListComponent implements OnInit {
           state: d.state
         });
       }
+      console.log("getTasks()");
       console.log(this.tasks);
     });
   }
@@ -79,8 +80,7 @@ export class TaskListComponent implements OnInit {
       description: this.newTaskData.control.value,
     }
     console.log('Creating task', newTask);
-    this.taskService.addTask(newTask).subscribe(res => {console.log(res)});
-    this.getTasks();
+    this.taskService.addTask(newTask).subscribe((res) => { this.getTasks()});
     this.newTaskData.show = false;
     this.openSnackBar('Task created successfully', '');
   }
@@ -108,7 +108,7 @@ export class TaskListComponent implements OnInit {
     const taskToDelete = this.tasks[this.deleteTaskData.index];
     if (taskToDelete) {
       console.log('Deleting task', taskToDelete);
-      this.taskService.deleteTask(taskToDelete.id).subscribe();
+      this.taskService.deleteTask(taskToDelete.id).subscribe((res) => { this.getTasks()});
       this.openSnackBar('Task with id ' + taskToDelete.id + ' removed successfully','');
     }
     this.deleteTaskData.dialog.close();
@@ -121,6 +121,22 @@ export class TaskListComponent implements OnInit {
     this.deleteTaskData.dialog.close();
     this.deleteTaskData.index = null;
     this.deleteTaskData.dialog = null;
+  }
+
+  public showFinished(){
+    this.tasks = [];
+    this.taskService.completedTasks().subscribe(data => {
+      for (const d of (data as any)) {
+        this.tasks.push({
+          id: d.id,
+          name: d.name,
+          description: d.description,
+          state: d.state
+        });
+      }
+      console.log("getCompletedTasks()");
+      console.log(this.tasks);
+    });
   }
 
   public openSnackBar(message: string, action: string) {

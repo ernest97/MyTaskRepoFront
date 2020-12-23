@@ -82,6 +82,10 @@
         </div>
       </div>
     </div>
+     <div class="col-12 row p-0 m-0 mb-4 justify-content-end">
+        <button mat-raised-button color="primary" [disabled]="newTaskData.show" (click)="getTasks()">Recargar tareas</button>
+        <button mat-raised-button color="primary" [disabled]="newTaskData.show" (click)="showFinished()">Mostrar completas</button>
+    </div>
   </div>
 </div>
 
