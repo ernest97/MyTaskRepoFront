@@ -1,0 +1,20 @@
+.task-container {
+	background-color: #e7e9f5;
+	border-radius: 5px;
+}
+
+.new-task-container {
+	background-color: #e7e9f5;
+	border-radius: 5px;
+}
+
+.align-baseline {
+	align-items: baseline;
+}
+
+.task-status {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	min-width: 150px;
+}

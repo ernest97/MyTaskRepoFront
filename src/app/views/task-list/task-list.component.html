@@ -1,0 +1,99 @@
+<div class = "container">
+  <div class = "card p-4">
+    <!-- <h3 class = "text-center">TO-DO List</h3>
+    <div class = "card-body">
+      <table class = "table table-striped">
+        <thead>
+          <th>ID</th>
+          <th>Description</th>
+          <th>Status</th>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let task of tasks">
+            <td>{{ task.id }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+    <div class="col-12 p-0 mb-4 text-center text-normal-22">
+      TO-DO List
+    </div>
+    <div class="col-12 row p-0 m-0 mb-4 justify-content-end">
+        <button mat-raised-button color="primary" [disabled]="newTaskData.show" (click)="newTask()">New task</button>
+    </div>
+    <div class="col-12 p-0 p-4 mb-4 new-task-container" *ngIf="newTaskData.show">
+      <!-- <div class="col-12 row p-0 m-0 justify-content-center text-normal-22">
+        New task
+      </div> -->
+      <div class="col-12 p-0">
+        <form class="col-12 p-0">
+          <mat-form-field class="col-12 p-0" appearance="standard">
+            <mat-label>Task name</mat-label>
+            <input maxlength="256" matInput [formControl]="newTaskData.controlname"/>
+            <mat-hint align="end">{{newTaskData.controlname.value.length}} / 256</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="col-12 p-0" appearance="standard">
+            <mat-label>Task description</mat-label>
+            <input maxlength="256" matInput [formControl]="newTaskData.control"/>
+            <mat-hint align="end">{{newTaskData.control.value.length}} / 256</mat-hint>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="col-12 row p-0 m-0 justify-content-end">
+        <div class="col-auto p-0">
+          <button mat-button color="basic" (click)="cancelNewTask()">Cancelar</button>
+        </div>
+        <div class="col-auto p-0 ml-3">
+          <button mat-raised-button color="primary" (click)="createTask()">Crear</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 p-0">
+      <div class="col-12 row p-4 m-0 mb-3 task-container" *ngFor = "let task of tasks; index as idx">
+        <div class="col-3 p-0">
+          <div class="col-12 row p-0 m-0 align-baseline">
+            <div class="col-auto p-0 text-normal-12">
+              Task name  
+            </div>
+            <div class="col p-0 ml-3 text-normal-18">
+              {{task.name}}
+            </div>
+          </div>
+          <div class="col-12 row p-0 m-0 mt-2 justify-content-start align-baseline">
+            <mat-form-field appearance="fill">
+              <mat-label>Task status</mat-label>
+              <mat-select [(value)]="task.state" (selectionChange)="updateTask(idx)">
+                <mat-option *ngFor="let status of taskStatusOpts" [value]="status.value">
+                  {{status.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col p-0">
+          {{task.description}}
+        </div>
+        <div class="col-auto p-0 d-flex align-items-center">
+          <button mat-icon-button color="primary" (click)="deleteTask(idx)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #dialog>
+  <h1 mat-dialog-title>Delete task</h1>
+  <div mat-dialog-content>
+    <p>Sure to delete the task?</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="deleteCancel()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="deleteConfirm()">Delete</button>
+  </div>
+  
+
+</ng-template>
